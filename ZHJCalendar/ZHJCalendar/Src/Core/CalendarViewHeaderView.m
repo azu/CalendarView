@@ -15,17 +15,8 @@
 @synthesize previousMonthButton;
 @synthesize nextMonthButton;
 
-- (void) dealloc
-{
-    [previousMonthButton release];
-    [nextMonthButton release];        
-    _delegate = nil;
-    [_title release];
-    _title = nil;
-    [super dealloc];
-}
 + (CalendarViewHeaderView*) viewFromNib
 {
-    return [[[[[NSBundle mainBundle] loadNibNamed:[[self class] description] owner:self options:nil] objectAtIndex:0] retain] autorelease];
+    return [[[NSBundle mainBundle] loadNibNamed:[[self class] description] owner:self options:nil] objectAtIndex:0];
 }
 @end

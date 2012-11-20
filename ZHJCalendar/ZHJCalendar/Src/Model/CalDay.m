@@ -7,21 +7,20 @@
 //
 
 #import "CalDay.h"
-#import "DateUtil.h"
 
 #define SECOND_OF_A_DAY 24*60*60
 
-@interface CalDay()
-- (void) cacluateDate;
+@interface CalDay ()
+
+- (void)cacluateDate;
 @end
 
 @implementation CalDay
 
 @synthesize date;
 
-- (void) cacluateDate
-{
-    unsigned unitFlags = NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit|NSWeekdayCalendarUnit;
+- (void)cacluateDate {
+    unsigned unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSWeekdayCalendarUnit;
     NSCalendar *gregorian = [NSCalendar currentCalendar];
     NSDateComponents *comps = [gregorian components:unitFlags fromDate:_date];
     day.month = comps.month;
@@ -29,21 +28,19 @@
     day.year = comps.year;
     day.weekDay = comps.weekday;//[gregorian ordinalityOfUnit:NSWeekdayCalendarUnit inUnit:NSWeekCalendarUnit forDate:_date];
 }
-- (id) initWithDate:(NSDate*)d
-{
+
+- (id)initWithDate:(NSDate *)d {
     self = [super init];
-    if (self) 
-    {
-        _date = [d retain];
+    if (self){
+        _date = d;
         [self cacluateDate];
     }
     return self;
 }
-- (id) initWithYear:(NSInteger)year month:(NSInteger)month day:(NSInteger)d
-{
+
+- (id)initWithYear:(NSInteger)year month:(NSInteger)month day:(NSInteger)d {
     self = [super init];
-    if (self) 
-    {
+    if (self){
         NSDateComponents *comps = [[NSDateComponents alloc] init];
         [comps setYear:year];
         [comps setMonth:month];
@@ -51,102 +48,83 @@
         [comps setHour:0];
         [comps setMinute:0];
         [comps setSecond:0];
-        _date = [[[NSCalendar currentCalendar] dateFromComponents:comps] retain];
-        [comps release];
+        _date = [[NSCalendar currentCalendar] dateFromComponents:comps];
         [self cacluateDate];
     }
-    return self;    
+    return self;
 }
-- (void) dealloc
-{
-    [_date release];
+
+- (void)dealloc {
     _date = nil;
-    [super dealloc];
 }
-- (NSDate*)date
-{
+
+- (NSDate *)date {
     return _date;
 }
-- (NSUInteger) getYear
-{
+
+- (NSUInteger)getYear {
     return day.year;
 }
-- (NSUInteger) getMonth
-{
-    return day.month;    
+
+- (NSUInteger)getMonth {
+    return day.month;
 }
-- (NSUInteger) getDay
-{
-    return day.day;        
+
+- (NSUInteger)getDay {
+    return day.day;
 }
-- (NSUInteger) getWeekDay
-{
-    return day.weekDay;            
+
+- (NSUInteger)getWeekDay {
+    return day.weekDay;
 }
-- (NSComparisonResult) compare:(CalDay*)calDay
-{
+
+- (NSComparisonResult)compare:(CalDay *)calDay {
     NSComparisonResult result = NSOrderedSame;
-    if([self getYear] < [calDay getYear])
-    {
+    if ([self getYear] < [calDay getYear]){
         result = NSOrderedAscending;
-    }
-    else if([self getYear] == [calDay getYear])
-    {
-        if([self getMonth] < [calDay getMonth])
-        {
+    } else if ([self getYear] == [calDay getYear]){
+        if ([self getMonth] < [calDay getMonth]){
             result = NSOrderedAscending;
-        }
-        else if([self getMonth] == [calDay getMonth])
-        {
-            if([self getDay] < [calDay getDay])
-            {
+        } else if ([self getMonth] == [calDay getMonth]){
+            if ([self getDay] < [calDay getDay]){
                 result = NSOrderedAscending;
-            }
-            else if([self getDay] == [calDay getDay])
-            {
+            } else if ([self getDay] == [calDay getDay]){
                 result = NSOrderedSame;
+            } else {
+                result = NSOrderedDescending;
             }
-            else
-            {    
-                result = NSOrderedDescending;        
-            }  
+        } else {
+            result = NSOrderedDescending;
         }
-        else
-        {    
-            result = NSOrderedDescending;        
-        }        
-    }
-    else
-    {    
-        result = NSOrderedDescending;        
+    } else {
+        result = NSOrderedDescending;
     }
     return result;
 }
-- (CalDay*) nextDay
-{
+
+- (CalDay *)nextDay {
     NSDate *nextDayDate = [_date dateByAddingTimeInterval:SECOND_OF_A_DAY];
     CalDay *nextDay = [[CalDay alloc] initWithDate:nextDayDate];
-    return [nextDay autorelease];
+    return nextDay;
 }
-- (CalDay*) previousDay
-{
-    NSDate *previousDayDate = [_date dateByAddingTimeInterval:-1*SECOND_OF_A_DAY];
+
+- (CalDay *)previousDay {
+    NSDate *previousDayDate = [_date dateByAddingTimeInterval:-1 * SECOND_OF_A_DAY];
     CalDay *previousDay = [[CalDay alloc] initWithDate:previousDayDate];
-    return [previousDay autorelease];
+    return previousDay;
 }
-- (WeekDay) getMeaningfulWeekDay
-{
+
+- (WeekDay)getMeaningfulWeekDay {
     WeekDay wd = WeekDayKnown;
-    switch (day.weekDay) 
-    {
+    switch (day.weekDay) {
         case 1:
             wd = WeekDaySunday;
             break;
         case 2:
-            wd = WeekDayMonday;            
+            wd = WeekDayMonday;
             break;
         case 3:
-            wd = WeekDayTuesday;                        
+            wd = WeekDayTuesday;
             break;
         case 4:
             wd = WeekDayWednesday;
@@ -165,19 +143,18 @@
     }
     return wd;
 }
-- (NSString*) getWeekDayName
-{
+
+- (NSString *)getWeekDayName {
     NSString *name = @"KnownName";
-    switch (day.weekDay) 
-    {
+    switch (day.weekDay) {
         case 1:
             name = @"Sunday";
             break;
         case 2:
-            name = @"Monday";            
+            name = @"Monday";
             break;
         case 3:
-            name = @"Tuesday";                        
+            name = @"Tuesday";
             break;
         case 4:
             name = @"Wednesday";
@@ -193,27 +170,26 @@
             break;
         default:
             break;
-    }    
+    }
     return name;
 }
-- (NSString*)description
-{
+
+- (NSString *)description {
     return [NSString stringWithFormat:@"year:%d month:%d day:%d week:%d %@", day.year, day.month, day.day, [self getMeaningfulWeekDay], [self getWeekDayName]];
 }
-- (BOOL) isToday
-{
-    return ([DateUtil getCurrentYear] == day.year && 
-            [DateUtil getCurrentMonth] == day.month && 
-            [DateUtil getCurrentDay] == day.day);
+
+- (BOOL)isToday {
+    return ([DateUtil getCurrentYear] == day.year &&
+        [DateUtil getCurrentMonth] == day.month &&
+        [DateUtil getCurrentDay] == day.day);
 }
-- (BOOL) isEqualToDay:(CalDay*)calDay
-{
+
+- (BOOL)isEqualToDay:(CalDay *)calDay {
     BOOL equal = FALSE;
-    if (calDay) 
-    {
-        equal = ([calDay getYear] == day.year && 
-                 [calDay getMonth] == day.month && 
-                 [calDay getDay] == day.day);    
+    if (calDay){
+        equal = ([calDay getYear] == day.year &&
+            [calDay getMonth] == day.month &&
+            [calDay getDay] == day.day);
     }
     return equal;
 }

@@ -22,9 +22,9 @@
     } day;
 }
 - (id) initWithDate:(NSDate*)d;
-- (id) initWithYear:(NSInteger)year month:(NSInteger)year day:(NSInteger)day;
+- (id) initWithYear:(NSInteger)year month:(NSInteger)month day:(NSInteger)day;
 
-@property (nonatomic, retain, readonly) NSDate *date;
+@property (nonatomic, strong, readonly) NSDate *date;
 
 - (NSUInteger) getYear;
 - (NSUInteger) getMonth;

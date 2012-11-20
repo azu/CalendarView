@@ -31,7 +31,6 @@
     {
         CalDay *calDay = [[CalDay alloc] initWithYear:mon.year month:mon.month day:day];
         [daysOfMonth addObject:calDay];
-        [calDay release];
     }
 }
 - (CalMonth*) nextMonth
@@ -45,7 +44,7 @@
         month = 1;
     }
     CalMonth *calMonth = [[CalMonth alloc] initWithMonth:month year:year day:day];
-    return [calMonth autorelease];
+    return calMonth;
 }
 - (CalMonth*) previousMonth
 {
@@ -58,7 +57,7 @@
         month = 12;
     }
     CalMonth *calMonth = [[CalMonth alloc] initWithMonth:month year:year day:day];
-    return [calMonth autorelease];    
+    return calMonth;    
 }
 - (id) initWithMonth:(NSUInteger)month
 {
@@ -133,8 +132,6 @@
 }
 - (void) dealloc
 {
-    [daysOfMonth release];
     daysOfMonth = nil; 
-    [super dealloc];
 }
 @end

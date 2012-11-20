@@ -10,7 +10,7 @@
 
 @interface BaseCalendarDisableGridView()
 
-@property (retain, nonatomic) IBOutlet UIButton *gridButton;
+@property (strong, nonatomic) IBOutlet UIButton *gridButton;
 
 @end
 
@@ -63,10 +63,5 @@
     NSString *title = [NSString stringWithFormat:@"%d", [_calDay getDay]];
     [self.gridButton setTitle:title forState:UIControlStateNormal];
     self.gridButton.selected = self.selected;    
-}
-- (void)dealloc 
-{
-    [gridButton release];
-    [super dealloc];
 }
 @end

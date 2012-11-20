@@ -10,7 +10,7 @@
 
 @interface BaseCalendarGridView()
 
-@property (retain, nonatomic) IBOutlet UIButton *gridButton;
+@property (strong, nonatomic) IBOutlet UIButton *gridButton;
 
 @end
 
@@ -74,10 +74,5 @@
 {
     _selected = selected;
     [self setNeedsLayout];
-}
-- (void)dealloc 
-{
-    [gridButton release];
-    [super dealloc];
 }
 @end

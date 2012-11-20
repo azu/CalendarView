@@ -17,12 +17,6 @@
 @synthesize window = _window;
 @synthesize viewController = _viewController;
 
-- (void)dealloc
-{
-    [_window release];
-    [_viewController release];
-    [super dealloc];
-}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -49,15 +43,13 @@
     ITTDINFO(@"numberOfDaysInMonth %d", [DateUtil numberOfDaysInMonth:4]);    
     CalDay *calDay = [[CalDay alloc] initWithDate:[NSDate dateWithTimeIntervalSinceNow:2*24*60*60]];
     ITTDINFO(@"cal day %@", calDay);
-    [calDay release];
     NSInteger x = 12;    
     NSAssert(x!=0, @"x must not be zero");    
     CalMonth *calMonth = [[CalMonth alloc] initWithMonth:4 year:2012];
     ITTDINFO(@"cal month %@", calMonth);
-    [calMonth release];
-    self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
-    self.viewController = [[[ViewController alloc] initWithNibName:@"ViewController" bundle:nil] autorelease];
+    self.viewController = [[ViewController alloc] initWithNibName:@"ViewController" bundle:nil];
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
     return YES;

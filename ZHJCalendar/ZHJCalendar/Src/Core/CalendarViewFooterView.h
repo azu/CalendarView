@@ -14,11 +14,11 @@
 @interface CalendarViewFooterView : UIView
 {
     UIButton *_selectedButton;   
-    id<CalendarViewFooterViewDelegate> _delegate;
+    id<CalendarViewFooterViewDelegate> __unsafe_unretained _delegate;
 }
 
-@property (nonatomic, assign) id<CalendarViewFooterViewDelegate> delegate;
-@property (nonatomic, retain) IBOutlet UIButton *selectedButton;
+@property (nonatomic, unsafe_unretained) id<CalendarViewFooterViewDelegate> delegate;
+@property (nonatomic, strong) IBOutlet UIButton *selectedButton;
 
 + (CalendarViewFooterView*) viewFromNib;
 

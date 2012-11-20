@@ -10,7 +10,7 @@
 
 @interface BaseCalendarViewHeaderView()
 
-@property (retain, nonatomic) IBOutlet UILabel *monthLabel;
+@property (strong, nonatomic) IBOutlet UILabel *monthLabel;
 
 @end
 
@@ -51,15 +51,9 @@
 {
     if (_title)
     {
-        [_title release];
         _title = nil;        
     }
-    _title = [title retain];
+    _title = title;
     self.monthLabel.text = title;
-}
-- (void)dealloc 
-{
-    [monthLabel release];
-    [super dealloc];
 }
 @end

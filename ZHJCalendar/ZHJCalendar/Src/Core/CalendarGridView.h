@@ -23,10 +23,10 @@
     
     CalDay      *_calDay;
     
-    id<CalendarGridViewDelegate> _delegate;
+    id<CalendarGridViewDelegate> __unsafe_unretained _delegate;
 }
 
-@property (nonatomic, assign) id<CalendarGridViewDelegate> delegate;
+@property (nonatomic, unsafe_unretained) id<CalendarGridViewDelegate> delegate;
 
 @property (nonatomic, assign) BOOL selected;
 @property (nonatomic, assign) BOOL selectedEanable;
@@ -34,8 +34,8 @@
 @property (nonatomic, assign) NSUInteger row;
 @property (nonatomic, assign) NSUInteger column;
 
-@property (nonatomic, retain) NSString *identifier;
-@property (nonatomic, retain) CalDay *calDay;
+@property (nonatomic, strong) NSString *identifier;
+@property (nonatomic, strong) CalDay *calDay;
 
 - (void) select;
 - (void) deselect;

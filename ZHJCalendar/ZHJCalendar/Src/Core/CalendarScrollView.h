@@ -12,10 +12,10 @@
 
 @interface CalendarScrollView : UIScrollView
 {
-    id<CalendarScrollViewDelegate> _calendarDelegate;
+    id<CalendarScrollViewDelegate> __unsafe_unretained _calendarDelegate;
 }
 
-@property (nonatomic, assign) id<CalendarScrollViewDelegate> calendarDelegate;
+@property (nonatomic, unsafe_unretained) id<CalendarScrollViewDelegate> calendarDelegate;
 
 @end
 

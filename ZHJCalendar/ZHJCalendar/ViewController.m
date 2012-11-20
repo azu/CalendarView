@@ -30,7 +30,6 @@
 	NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
 	[formatter setDateFormat:formate];
 	NSString *str = [formatter stringFromDate:date];
-	[formatter release];
 	return str;
 }
 - (void) calendarViewDidSelectDay:(CalendarView*)calendarView calDay:(CalDay*)calDay
@@ -61,8 +60,10 @@
     BaseDataSourceImp *dataSource = [[BaseDataSourceImp alloc] init];
     _calendarView.dataSource = dataSource;
     _calendarView.delegate = self;
-    _calendarView.frame = CGRectMake(8, 40, 309, 301);
-    _calendarView.allowsMultipleSelection = TRUE;
+    _calendarView.frame = CGRectMake(8, 40, 309, 350);
+    _calendarView.allowsMultipleSelection = NO;
+//    NSDate *minimumDate = [NSDate date];
+//    _calendarView.minimumDate = minimumDate;
     //_calendarView.maximumDate = [self theDateRelativeTodayWithInterval:20];
     [_calendarView showInView:self.view];
 }

@@ -28,12 +28,7 @@
 }
 - (void) dealloc
 {
-    [_identifier release];
-    _identifier = nil;
     _delegate = nil;
-    [_calDay release];
-    _calDay = nil;
-    [super dealloc];
 }
 - (void) awakeFromNib
 {
@@ -57,11 +52,11 @@
 */
 + (CalendarGridView*) viewFromNib
 {
-    return [[[[[NSBundle mainBundle] loadNibNamed:[[self class] description] owner:self options:nil] objectAtIndex:0] retain] autorelease];
+    return [[[NSBundle mainBundle] loadNibNamed:[[self class] description] owner:self options:nil] objectAtIndex:0];
 }
 + (CalendarGridView*) viewFromNibWithIdentifier:(NSString*)identifier
 {
-    CalendarGridView *gridView = [[[[[NSBundle mainBundle] loadNibNamed:[[self class] description] owner:self options:nil] objectAtIndex:0] retain] autorelease];
+    CalendarGridView *gridView = [[[NSBundle mainBundle] loadNibNamed:[[self class] description] owner:self options:nil] objectAtIndex:0];
     gridView.identifier = identifier;
     return gridView;
 }

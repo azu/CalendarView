@@ -61,10 +61,10 @@ CalendarViewHeaderViewDelegate, CalendarViewFooterViewDelegate, CalendarScrollVi
     NSMutableDictionary     *_recyledGridSetDic;    
     
     id<CalendarViewDataSource>  _dataSource;
-    id<CalendarViewDelegate>    _delegate;
+    id<CalendarViewDelegate>    __unsafe_unretained _delegate;
 }
-@property (nonatomic, retain) id<CalendarViewDataSource> dataSource;
-@property (nonatomic, assign) id<CalendarViewDelegate>   delegate;
+@property (nonatomic, strong) id<CalendarViewDataSource> dataSource;
+@property (nonatomic, unsafe_unretained) id<CalendarViewDelegate>   delegate;
 
 @property (nonatomic, assign) PeriodType selectedPeriod;    
 /*
@@ -75,28 +75,28 @@ CalendarViewHeaderViewDelegate, CalendarViewFooterViewDelegate, CalendarScrollVi
 /*
  * default date is current date
  */
-@property (nonatomic, retain) NSDate *date;              
+@property (nonatomic, strong) NSDate *date;              
 /*
  * The minimum date that a date calendar view can show
  */
-@property (nonatomic, retain) NSDate *minimumDate;          
+@property (nonatomic, strong) NSDate *minimumDate;          
 /*
  * The maximum date that a date calendar view can show
  */
-@property (nonatomic, retain) NSDate *maximumDate;
+@property (nonatomic, strong) NSDate *maximumDate;
 /*
  * The selected calyday on calendar view
  */
-@property (retain, nonatomic, readonly) CalDay *selectedDay;
+@property (strong, nonatomic, readonly) CalDay *selectedDay;
 /*
  * The selected date on calendar view
  */
-@property (retain, nonatomic, readonly) NSDate *selectedDate;
+@property (strong, nonatomic, readonly) NSDate *selectedDate;
 /*
  * nil will be returned is allowsMultipleSelection is FALSE. 
  * Otherwise, an autorelease array of NSDate will be returned.
  */
-@property (retain, nonatomic, readonly) NSArray *selectedDateArray;
+@property (strong, nonatomic, readonly) NSArray *selectedDateArray;
 
 - (void) nextMonth;
 - (void) previousMonth;

@@ -38,7 +38,6 @@
 - (void) dealloc
 {
     _calendarDelegate = nil;
-    [super dealloc];
 }
 - (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {

@@ -16,12 +16,9 @@
 - (void) dealloc
 {
     _delegate = nil;
-    [_selectedButton release];
-    _selectedButton = nil;
-    [super dealloc];
 }
 + (CalendarViewFooterView*) viewFromNib
 {
-    return [[[[[NSBundle mainBundle] loadNibNamed:[[self class] description] owner:self options:nil] objectAtIndex:0] retain] autorelease];
+    return [[[NSBundle mainBundle] loadNibNamed:[[self class] description] owner:self options:nil] objectAtIndex:0];
 }
 @end

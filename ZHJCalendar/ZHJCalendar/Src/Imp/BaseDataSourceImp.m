@@ -11,35 +11,34 @@
 #import "BaseCalendarDisableGridView.h"
 #import "BaseCalendarViewHeaderView.h"
 #import "BaseCalendarViewFooterView.h"
-#import "CalMonth.h"
 
 @implementation BaseDataSourceImp
-- (CalendarGridView*) calendarView:(CalendarView*)calendarView calendarGridViewForRow:(NSInteger)row column:(NSInteger)column calDay:(CalDay*)calDay
-{
+
+- (CalendarGridView *)calendarView:(CalendarView *)calendarView calendarGridViewForRow:(NSInteger)row
+                      column:(NSInteger)column calDay:(CalDay *)calDay {
     static NSString *identifier = @"BaseCalendarGridView";
     CalendarGridView *gridView = [calendarView dequeueCalendarGridViewWithIdentifier:identifier];
-    if (!gridView) 
-    {
-        gridView = [BaseCalendarGridView viewFromNibWithIdentifier:identifier];        
+    if (!gridView){
+        gridView = [BaseCalendarGridView viewFromNibWithIdentifier:identifier];
     }
     return gridView;
 }
-- (CalendarGridView*) calendarView:(CalendarView*)calendarView calendarDisableGridViewForRow:(NSInteger)row column:(NSInteger)column calDay:(CalDay*)calDay
-{
-    static NSString *identifier = @"BaseCalendarDisableGridView";    
+
+- (CalendarGridView *)calendarView:(CalendarView *)calendarView calendarDisableGridViewForRow:(NSInteger)row
+                      column:(NSInteger)column calDay:(CalDay *)calDay {
+    static NSString *identifier = @"BaseCalendarDisableGridView";
     CalendarGridView *gridView = [calendarView dequeueCalendarGridViewWithIdentifier:identifier];
-    if (!gridView) 
-    {
+    if (!gridView){
         gridView = [BaseCalendarDisableGridView viewFromNibWithIdentifier:identifier];
     }
     return gridView;
 }
-- (CalendarViewHeaderView*) headerViewForCalendarView:(CalendarView*)calendarView
-{
+
+- (CalendarViewHeaderView *)headerViewForCalendarView:(CalendarView *)calendarView {
     return [BaseCalendarViewHeaderView viewFromNib];
 }
-- (CalendarViewFooterView*) footerViewForCalendarView:(CalendarView*)calendarView
-{
+
+- (CalendarViewFooterView *)footerViewForCalendarView:(CalendarView *)calendarView {
     return [BaseCalendarViewFooterView viewFromNib];
 }
 //- (NSArray*) weekTitlesForCalendarView:(CalendarView*)calendarView
