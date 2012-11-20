@@ -12,12 +12,12 @@
 
 + (BOOL) isLeapYear:(NSInteger)year;
 /*
- * @abstract caculate number of days by specified month and current year
+ * @abstract calculate number of days by specified month and current year
  * @paras year range between 1 and 12
  */
 + (NSInteger) numberOfDaysInMonth:(NSInteger)month;
 /*
- * @abstract caculate number of days by specified month and year
+ * @abstract calculate number of days by specified month and year
  * @paras year range between 1 and 12
  */
 + (NSInteger) numberOfDaysInMonth:(NSInteger)month year:(NSInteger) year;

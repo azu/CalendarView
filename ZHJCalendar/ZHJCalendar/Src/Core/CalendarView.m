@@ -31,7 +31,7 @@
 
 - (void)layoutGridCells;
 
-- (void)recyleAllGridViews;
+- (void)recycleAllGridViews;
 
 - (void)resetSelectedIndicesMatrix;
 
@@ -116,7 +116,7 @@
     _calMonth = [[CalMonth alloc] initWithDate:_date];
     _gridViewsArray = [[NSMutableArray alloc] init];
     _monthGridViewsArray = [[NSMutableArray alloc] init];
-    _recyledGridSetDic = [[NSMutableDictionary alloc] init];
+    _recycledGridSetDic = [[NSMutableDictionary alloc] init];
 
     NSUInteger n = 6;
     _selectedIndicesMatrix = (bool **) malloc(sizeof(bool *) * n);
@@ -160,7 +160,7 @@
 }
 
 - (void)setCalMonth:(CalMonth *)calMonth {
-    [self recyleAllGridViews];
+    [self recycleAllGridViews];
     if (_calMonth){
         _calMonth = nil;
     }
@@ -175,7 +175,7 @@
     _minimumDate = minimumDate;
     _minimumDay = [[CalDay alloc] initWithDate:_minimumDate];
     _firstLayout = TRUE;
-    [self recyleAllGridViews];
+    [self recycleAllGridViews];
     [self setNeedsLayout];
 }
 
@@ -190,7 +190,7 @@
     _maximumDay = [[CalDay alloc] initWithDate:_maximumDate];
 
     _firstLayout = TRUE;
-    [self recyleAllGridViews];
+    [self recycleAllGridViews];
     [self setNeedsLayout];
 }
 
@@ -251,21 +251,21 @@
     return titles;
 }
 
-- (void)recyleAllGridViews {
+- (void)recycleAllGridViews {
     /*
-     * recyled all grid views
+     * recycled all grid views
      */
-    NSMutableSet *recyledGridSet;
+    NSMutableSet *recycledGridSet;
     for (NSMutableArray *rowGridViewsArray in _gridViewsArray){
         for (CalendarGridView *gridView in rowGridViewsArray){
-            recyledGridSet = [_recyledGridSetDic objectForKey:gridView.identifier];
-            if (!recyledGridSet){
-                recyledGridSet = [[NSMutableSet alloc] init];
-                [_recyledGridSetDic setObject:recyledGridSet forKey:gridView.identifier];
+            recycledGridSet = [_recycledGridSetDic objectForKey:gridView.identifier];
+            if (!recycledGridSet){
+                recycledGridSet = [[NSMutableSet alloc] init];
+                [_recycledGridSetDic setObject:recycledGridSet forKey:gridView.identifier];
             }
             gridView.selected = FALSE;
             [gridView removeFromSuperview];
-            [recyledGridSet addObject:gridView];
+            [recycledGridSet addObject:gridView];
         }
         [rowGridViewsArray removeAllObjects];
     }
@@ -420,7 +420,7 @@
         gridView.calDay = calDay;
         gridView.row = row;
         gridView.column = column;
-        gridView.selectedEanable = ([self isEarlyerMinimumDay:calDay] || [self isAfterMaximumDay:calDay]) ? FALSE : TRUE;
+        gridView.selectedEnable = ([self isEarlyerMinimumDay:calDay] || [self isAfterMaximumDay:calDay]) ? FALSE : TRUE;
         if ([calDay isEqualToDay:self.selectedDay]){
             hasSelectedDay = TRUE;
             gridView.selected = TRUE;
@@ -533,11 +533,11 @@
 
 - (CalendarGridView *)dequeueCalendarGridViewWithIdentifier:(NSString *)identifier {
     CalendarGridView *gridView = nil;
-    NSMutableSet *recyledGridSet = [_recyledGridSetDic objectForKey:identifier];
-    if (recyledGridSet){
-        gridView = [recyledGridSet anyObject];
+    NSMutableSet *recycledGridSet = [_recycledGridSetDic objectForKey:identifier];
+    if (recycledGridSet){
+        gridView = [recycledGridSet anyObject];
         if (gridView){
-            [recyledGridSet removeObject:gridView];
+            [recycledGridSet removeObject:gridView];
         }
     }
     return gridView;
@@ -748,7 +748,7 @@
     [self freeMatrix];
     _delegate = nil;
     _calendarHeaderView = nil;
-    _recyledGridSetDic = nil;
+    _recycledGridSetDic = nil;
     _gridViewsArray = nil;
     _monthGridViewsArray = nil;
     _minimumDay = nil;
@@ -820,7 +820,7 @@
 }
 
 #pragma mark - CalendarScrollViewDelegate
-- (void)calendarSrollViewTouchesBegan:(CalendarScrollView *)calendarScrollView touches:(NSSet *)touches
+- (void)calendarScrollViewTouchesBegan:(CalendarScrollView *)calendarScrollView touches:(NSSet *)touches
         withEvent:(UIEvent *)event {
     _moved = FALSE;
     UITouch *beginTouch = [touches anyObject];
@@ -828,7 +828,7 @@
     _beginPoint = [beginTouch locationInView:calendarScrollView];
 }
 
-- (void)calendarSrollViewTouchesMoved:(CalendarScrollView *)calendarScrollView touches:(NSSet *)touches
+- (void)calendarScrollViewTouchesMoved:(CalendarScrollView *)calendarScrollView touches:(NSSet *)touches
         withEvent:(UIEvent *)event {
     _moved = TRUE;
     GridIndex index = [self getGridViewIndex:calendarScrollView touches:touches];
@@ -854,7 +854,7 @@
     }
 }
 
-- (void)calendarSrollViewTouchesEnded:(CalendarScrollView *)calendarScrollView touches:(NSSet *)touches
+- (void)calendarScrollViewTouchesEnded:(CalendarScrollView *)calendarScrollView touches:(NSSet *)touches
         withEvent:(UIEvent *)event {
     GridIndex index = [self getGridViewIndex:calendarScrollView touches:touches];
     if ([self isValidGridViewIndex:index]){

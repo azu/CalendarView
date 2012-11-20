@@ -16,7 +16,7 @@
 @synthesize calDay = _calDay;
 @synthesize delegate = _delegate;
 @synthesize identifier = _identifier;
-@synthesize selectedEanable = _selectedEanable;
+@synthesize selectedEnable = _selectedEnable;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -34,7 +34,7 @@
 {
     [super awakeFromNib];
     _selected = FALSE;   
-    _selectedEanable = TRUE;
+    _selectedEnable = TRUE;
 }
 - (void) select
 {

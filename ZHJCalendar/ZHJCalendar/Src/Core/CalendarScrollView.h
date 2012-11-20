@@ -22,8 +22,8 @@
 @protocol CalendarScrollViewDelegate <NSObject>
 
 @optional
-- (void) calendarSrollViewTouchesBegan:(CalendarScrollView*)calendarScrollView touches:(NSSet *)touches withEvent:(UIEvent *)event;
-- (void) calendarSrollViewTouchesMoved:(CalendarScrollView*)calendarScrollView touches:(NSSet *)touches withEvent:(UIEvent *)event;
-- (void) calendarSrollViewTouchesEnded:(CalendarScrollView*)calendarScrollView touches:(NSSet *)touches withEvent:(UIEvent *)event;
+- (void)calendarScrollViewTouchesBegan:(CalendarScrollView *)calendarScrollView touches:(NSSet *)touches withEvent:(UIEvent *)event;
+- (void)calendarScrollViewTouchesMoved:(CalendarScrollView *)calendarScrollView touches:(NSSet *)touches withEvent:(UIEvent *)event;
+- (void)calendarScrollViewTouchesEnded:(CalendarScrollView *)calendarScrollView touches:(NSSet *)touches withEvent:(UIEvent *)event;
 - (void) calendarSrollViewTouchesCancelled:(CalendarScrollView*)calendarScrollView touches:(NSSet *)touches withEvent:(UIEvent *)event;
 @end

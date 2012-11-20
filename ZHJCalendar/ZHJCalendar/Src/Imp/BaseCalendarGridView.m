@@ -58,7 +58,7 @@
 - (void) layoutSubviews
 {
     NSString *title = [NSString stringWithFormat:@"%d", [_calDay getDay]];
-    if (_selectedEanable) 
+    if (_selectedEnable)
     {
         self.gridButton.selected = self.selected;              
         [self.gridButton setTitleColor:RGBCOLOR(122, 119, 122) forState:UIControlStateNormal];   

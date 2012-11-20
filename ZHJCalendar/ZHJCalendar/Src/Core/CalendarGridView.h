@@ -14,7 +14,7 @@
 @interface CalendarGridView : UIView
 {
     BOOL        _selected;
-    BOOL        _selectedEanable;
+    BOOL _selectedEnable;
     
     NSUInteger  _row;
     NSUInteger  _column;
@@ -29,7 +29,7 @@
 @property (nonatomic, unsafe_unretained) id<CalendarGridViewDelegate> delegate;
 
 @property (nonatomic, assign) BOOL selected;
-@property (nonatomic, assign) BOOL selectedEanable;
+@property (nonatomic, assign) BOOL selectedEnable;
 
 @property (nonatomic, assign) NSUInteger row;
 @property (nonatomic, assign) NSUInteger column;

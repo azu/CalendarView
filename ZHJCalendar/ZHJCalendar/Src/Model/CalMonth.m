@@ -14,14 +14,12 @@
 #define LAST_MONTH_OF_YEAR  12
 
 @interface CalMonth()
-- (void) caculateMonth;
+- (void)calculateMonth;
 @end
 
 @implementation CalMonth
 
-@synthesize days;
-
-- (void) caculateMonth
+- (void)calculateMonth
 {    
     mon.numberOfDays = [DateUtil numberOfDaysInMonth:[_today getMonth] year:[_today getYear]];
     mon.year = [_today getYear];
@@ -65,7 +63,7 @@
     if (self)
     {
         _today = [[CalDay alloc] initWithYear:[DateUtil getCurrentYear] month:month day:1];
-        [self caculateMonth];                
+        [self calculateMonth];
     }
     return self;    
 }
@@ -75,7 +73,7 @@
     if (self)
     {
         _today = [[CalDay alloc] initWithYear:year month:month day:1];
-        [self caculateMonth];                
+        [self calculateMonth];
     }
     return self;
 }
@@ -85,7 +83,7 @@
     if (self)
     {
         _today = [[CalDay alloc] initWithDate:d];
-        [self caculateMonth];
+        [self calculateMonth];
     }
     return self;    
 }
@@ -95,7 +93,7 @@
     if (self)
     {
         _today = [[CalDay alloc] initWithYear:year month:month day:day];
-        [self caculateMonth];        
+        [self calculateMonth];
     }
     return self;    
 }

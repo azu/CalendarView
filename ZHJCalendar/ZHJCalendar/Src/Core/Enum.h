@@ -25,7 +25,7 @@ typedef enum
     WeekDayMonday,
     WeekDayTuesday,
     WeekDayWednesday,
-    WeekDayThurday,
+    WeekDayThursday,
     WeekDayFriday,
     WeekDaySaturday,
     WeekDaySunday

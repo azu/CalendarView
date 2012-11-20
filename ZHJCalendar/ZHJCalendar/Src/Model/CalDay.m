@@ -12,14 +12,14 @@
 
 @interface CalDay ()
 
-- (void)cacluateDate;
+- (void)calcluateDate;
 @end
 
 @implementation CalDay
 
 @synthesize date;
 
-- (void)cacluateDate {
+- (void)calcluateDate {
     unsigned unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSWeekdayCalendarUnit;
     NSCalendar *gregorian = [NSCalendar currentCalendar];
     NSDateComponents *comps = [gregorian components:unitFlags fromDate:_date];
@@ -33,7 +33,7 @@
     self = [super init];
     if (self){
         _date = d;
-        [self cacluateDate];
+        [self calcluateDate];
     }
     return self;
 }
@@ -49,7 +49,7 @@
         [comps setMinute:0];
         [comps setSecond:0];
         _date = [[NSCalendar currentCalendar] dateFromComponents:comps];
-        [self cacluateDate];
+        [self calcluateDate];
     }
     return self;
 }
@@ -130,7 +130,7 @@
             wd = WeekDayWednesday;
             break;
         case 5:
-            wd = WeekDayThurday;
+            wd = WeekDayThursday;
             break;
         case 6:
             wd = WeekDayFriday;

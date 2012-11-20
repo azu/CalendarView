@@ -58,7 +58,7 @@ CalendarViewHeaderViewDelegate, CalendarViewFooterViewDelegate, CalendarScrollVi
     
     NSMutableArray          *_gridViewsArray;                   //two-dimensional array
     NSMutableArray          *_monthGridViewsArray;
-    NSMutableDictionary     *_recyledGridSetDic;    
+    NSMutableDictionary     *_recycledGridSetDic;
     
     id<CalendarViewDataSource>  _dataSource;
     id<CalendarViewDelegate>    __unsafe_unretained _delegate;
