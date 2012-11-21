@@ -24,9 +24,9 @@
     }
 }
 
-- (NSString *)stringFromFomate:(NSDate *)date formate:(NSString *)formate {
+- (NSString *)stringFromDate:(NSDate *)date formate:(NSString *)format {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:formate];
+    [formatter setDateFormat:format];
     NSString *str = [formatter stringFromDate:date];
     return str;
 }
@@ -35,11 +35,11 @@
     NSArray *selectedDates = calendarView.selectedDateArray;
     if (calendarView.allowsMultipleSelection){
         for (NSDate *date in selectedDates){
-            NSLog(@"selected date %@", [self stringFromFomate:date formate:@"yyyy-MM-dd"]);
+            ITTDINFO(@"selected date %@", [self stringFromDate:date formate:@"yyyy-MM-dd"]);
         }
     }
     else {
-        ITTDINFO(@"selected date %@", [self stringFromFomate:calendarView.selectedDate formate:@"yyyy-MM-dd"]);
+        ITTDINFO(@"selected date %@", [self stringFromDate:calendarView.selectedDate formate:@"yyyy-MM-dd"]);
     }
 }
 
@@ -64,15 +64,19 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+
     BaseDataSourceImp *dataSource = [[BaseDataSourceImp alloc] init];
-    self.cl = [CalendarView viewFromNib];
-    self.cl.dataSource = dataSource;
-    self.cl.delegate = self;
-    [self.cl showInView:self.view];
+    CalendarView *calendarView = [CalendarView viewFromNib];
+    calendarView.frame = self.targetView.frame;// targetView
+    calendarView.dataSource = dataSource;
+    calendarView.delegate = self;
+    [calendarView showInView:self.view];
+
+    NSLog(@"%@", [self.view performSelector:@selector(recursiveDescription)]);
 }
 
 - (void)viewDidUnload {
-    [self setCl:nil];
+    [self setTargetView:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }

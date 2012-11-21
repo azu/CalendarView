@@ -15,7 +15,7 @@
 #define PADDING_HORIZONTAL                       3
 #define HORIZONTAL_SWIPE_HEIGHT_CONSTRAINT       80
 #define HORIZONTAL_SWIPE_WIDTH_CONSTRAINT        90
-#define SWIPE_TIMERINTERVAL                      0.3
+#define SWIPE_TIMER_INTERVAL                      0.3
 
 @interface CalendarView ()
 
@@ -35,7 +35,7 @@
 
 - (void)resetSelectedIndicesMatrix;
 
-- (void)resetFoucsMatrix;
+- (void)resetFocusMatrix;
 
 - (void)updateSelectedGridViewState;
 
@@ -301,7 +301,7 @@
     }
 }
 
-- (void)resetFoucsMatrix {
+- (void)resetFocusMatrix {
     NSInteger n = 6;
     for (NSInteger row = 0 ;row < n ;row++){
         memset(_foucsMatrix[row], FALSE, NUMBER_OF_DAYS_IN_WEEK);
@@ -527,9 +527,6 @@
     CalendarGridView *gridView = nil;
     if (_dataSource && [_dataSource respondsToSelector:@selector(calendarView:calendarDisableGridViewForRow:column:calDay:)]){
         gridView = [_dataSource calendarView:self calendarDisableGridViewForRow:row column:column calDay:calDay];
-    }else{
-        NSLog(@"_dataSource = %@", _dataSource);
-        NSLog(@"_dataSource = %@", _dataSource);
     }
     return gridView;
 }
@@ -710,7 +707,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.alpha = 0.0;
+//    self.alpha = 0.0;
     self.multipleTouchEnabled = TRUE;
     self.gridScrollView.calendarDelegate = self;
     [self initParameters];
@@ -797,39 +794,50 @@
 - (void)calendarGridViewDidSelectGrid:(CalendarGridView *)gridView {
 }
 
-- (void)hide {
+- (void)hide:(BOOL)animated {
     [UIView animateWithDuration:0.3 animations:^{
-        _shieldView.alpha = 0.0;
-        self.alpha = 0.0;
+        [self hide];
     }];
 }
 
+- (void)hide {
+    _shieldView.alpha = 0.0;
+    self.alpha = 0.0;
+}
+
+- (void)show:(BOOL)animated {
+    [UIView animateWithDuration:0.4 animations:^{
+        [self show];
+    }];
+}
+
+- (void)show {
+    self.alpha = 1.0;
+    _shieldView.alpha = 0.6;
+}
+
 - (void)showInView:(UIView *)view {
+    [self addShieldInView:view];
+    if (![self isDescendantOfView:view]){
+        [view addSubview:self];
+    }
+    [self show:YES];
+}
+
+- (void)addShieldInView:(UIView *)view {
     if (!_shieldView){
         _shieldView = [[UIView alloc] initWithFrame:view.bounds];
         _shieldView.alpha = 0.0;
         _shieldView.backgroundColor = [UIColor whiteColor];
         [view addSubview:_shieldView];
-    }
-    else {
-        if (_shieldView.superview == view){
-        }
-        else {
+    } else {
+        if (![view isDescendantOfView:_shieldView]){
             _shieldView.alpha = 0.0;
             [_shieldView removeFromSuperview];
             _shieldView.frame = view.bounds;
             [view addSubview:_shieldView];
         }
     }
-    if (!self.superview){
-        [view addSubview:self];
-    }
-    else {
-    }
-    [UIView animateWithDuration:0.4 animations:^{
-        self.alpha = 1.0;
-        _shieldView.alpha = 0.6;
-    }];
 }
 
 #pragma mark - CalendarScrollViewDelegate
@@ -852,7 +860,7 @@
              * the grid is on unselected state
              */
             if (!_selectedIndicesMatrix[index.row][index.column]){
-                [self resetFoucsMatrix];
+                [self resetFocusMatrix];
                 _foucsMatrix[index.row][index.column] = TRUE;
                 selectedEnable = !_selectedIndicesMatrix[index.row][index.column];
                 selectedEnable = (selectedEnable & [self isGridViewSelectedEnableAtRow:index.row column:index.column]);
@@ -896,7 +904,7 @@
         }
     }
     UITouch *endTouch = [touches anyObject];
-    if (endTouch.timestamp - _beginTimeInterval <= SWIPE_TIMERINTERVAL){
+    if (endTouch.timestamp - _beginTimeInterval <= SWIPE_TIMER_INTERVAL){
         CGPoint endPoint = [endTouch locationInView:calendarScrollView];
         if (fabs(endPoint.y - _beginPoint.y) < HORIZONTAL_SWIPE_HEIGHT_CONSTRAINT){
             if (fabs(endPoint.x - _beginPoint.x) > HORIZONTAL_SWIPE_WIDTH_CONSTRAINT){

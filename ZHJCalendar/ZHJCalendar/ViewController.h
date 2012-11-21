@@ -14,5 +14,5 @@
 {
     CalendarView *_calendarView;
 }
-@property (unsafe_unretained, nonatomic) IBOutlet CalendarView *cl;
+@property (unsafe_unretained, nonatomic) IBOutlet UIView *targetView;
 @end

@@ -100,7 +100,15 @@ CalendarViewHeaderViewDelegate, CalendarViewFooterViewDelegate, CalendarScrollVi
 
 - (void) nextMonth;
 - (void) previousMonth;
+
+- (void)show:(BOOL)animated;
+
+- (void)show;
+
 - (void) showInView:(UIView*)view;
+
+- (void)hide:(BOOL)animated;
+
 - (void) hide;
 
 - (CalendarGridView*) dequeueCalendarGridViewWithIdentifier:(NSString*)identifier;
