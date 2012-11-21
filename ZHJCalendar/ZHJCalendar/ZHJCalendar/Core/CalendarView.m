@@ -118,13 +118,13 @@
 
     NSUInteger n = 6;
     _selectedIndicesMatrix = (bool **) malloc(sizeof(bool *) * n);
-    _foucsMatrix = (bool **) malloc(sizeof(bool *) * n);
+    _focusMatrix = (bool **) malloc(sizeof(bool *) * n);
     for (NSUInteger i = 0 ;i < n ;i++){
         _selectedIndicesMatrix[i] = malloc(sizeof(bool) * NUMBER_OF_DAYS_IN_WEEK);
         memset(_selectedIndicesMatrix[i], FALSE, NUMBER_OF_DAYS_IN_WEEK);
 
-        _foucsMatrix[i] = malloc(sizeof(bool) * NUMBER_OF_DAYS_IN_WEEK);
-        memset(_foucsMatrix[i], FALSE, NUMBER_OF_DAYS_IN_WEEK);
+        _focusMatrix[i] = malloc(sizeof(bool) * NUMBER_OF_DAYS_IN_WEEK);
+        memset(_focusMatrix[i], FALSE, NUMBER_OF_DAYS_IN_WEEK);
 
     }
     for (NSUInteger index = 0 ;index < n ;index++){
@@ -138,13 +138,13 @@
     for (int i = 0 ;i < n ;i++){
         free(_selectedIndicesMatrix[i]);
         _selectedIndicesMatrix[i] = NULL;
-        free(_foucsMatrix[i]);
-        _foucsMatrix[i] = NULL;
+        free(_focusMatrix[i]);
+        _focusMatrix[i] = NULL;
     }
     free(_selectedIndicesMatrix);
     _selectedIndicesMatrix = NULL;
-    free(_foucsMatrix);
-    _foucsMatrix = NULL;
+    free(_focusMatrix);
+    _focusMatrix = NULL;
 
 }
 
@@ -297,14 +297,14 @@
     NSInteger n = 6;
     for (NSInteger row = 0 ;row < n ;row++){
         memset(_selectedIndicesMatrix[row], FALSE, NUMBER_OF_DAYS_IN_WEEK);
-        memset(_foucsMatrix[row], FALSE, NUMBER_OF_DAYS_IN_WEEK);
+        memset(_focusMatrix[row], FALSE, NUMBER_OF_DAYS_IN_WEEK);
     }
 }
 
 - (void)resetFocusMatrix {
     NSInteger n = 6;
     for (NSInteger row = 0 ;row < n ;row++){
-        memset(_foucsMatrix[row], FALSE, NUMBER_OF_DAYS_IN_WEEK);
+        memset(_focusMatrix[row], FALSE, NUMBER_OF_DAYS_IN_WEEK);
     }
 }
 
@@ -863,7 +863,7 @@
              */
             if (!_selectedIndicesMatrix[index.row][index.column]){
                 [self resetFocusMatrix];
-                _foucsMatrix[index.row][index.column] = TRUE;
+                _focusMatrix[index.row][index.column] = TRUE;
                 selectedEnable = !_selectedIndicesMatrix[index.row][index.column];
                 selectedEnable = (selectedEnable & [self isGridViewSelectedEnableAtRow:index.row column:index.column]);
                 _selectedIndicesMatrix[index.row][index.column] = selectedEnable;

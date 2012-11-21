@@ -191,14 +191,15 @@
 			path = Images;
 			sourceTree = "<group>";
 		};
-		E721EA991567451F009DF710 /* Src */ = {
+		E721EA991567451F009DF710 /* ZHJCalendar */ = {
 			isa = PBXGroup;
 			children = (
 				E721EA9A1567451F009DF710 /* Core */,
 				E721EAA71567451F009DF710 /* Imp */,
 				E721EAB81567451F009DF710 /* Model */,
 			);
-			path = Src;
+			lastKnownFileType = text;
+			path = ZHJCalendar;
 			sourceTree = "<group>";
 		};
 		E721EA9A1567451F009DF710 /* Core */ = {
@@ -289,7 +290,7 @@
 		E74B7F251536659700315E1A /* ZHJCalendar */ = {
 			isa = PBXGroup;
 			children = (
-				E721EA991567451F009DF710 /* Src */,
+				E721EA991567451F009DF710 /* ZHJCalendar */,
 				E74B7F4315366BB700315E1A /* ITTDebug.h */,
 				E74B7F2E1536659700315E1A /* AppDelegate.h */,
 				E74B7F2F1536659700315E1A /* AppDelegate.m */,
