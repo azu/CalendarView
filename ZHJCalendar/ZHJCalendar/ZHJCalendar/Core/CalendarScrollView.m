@@ -70,9 +70,9 @@
 {
     [super touchesCancelled:touches withEvent:event];
     ITTDINFO(@"touchesCancelled");    
-    if (_calendarDelegate && [_calendarDelegate respondsToSelector:@selector(calendarSrollViewTouchesCancelled:touches:withEvent:)]) 
+    if (_calendarDelegate && [_calendarDelegate respondsToSelector:@selector(calendarScrollViewTouchesCancelled:touches:withEvent:)])
     {
-        [_calendarDelegate calendarSrollViewTouchesCancelled:self touches:touches withEvent:event];
+        [_calendarDelegate calendarScrollViewTouchesCancelled:self touches:touches withEvent:event];
     }    
 }
 @end
