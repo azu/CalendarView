@@ -103,8 +103,6 @@
     _allowsMultipleSelection = FALSE;
     _firstLayout = TRUE;
     _selectedPeriod = PeriodTypeAllDay;
-    _minimumDate = [NSDate date];
-    _minimumDay = [[CalDay alloc] initWithDate:_minimumDate];
     _previousSelectedIndex.row = NSNotFound;
     _previousSelectedIndex.column = NSNotFound;
 
