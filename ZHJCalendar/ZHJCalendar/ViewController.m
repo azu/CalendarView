@@ -18,8 +18,7 @@
 - (IBAction)showCalendar:(id)sender {
     if (_calendarView.appear){
         [_calendarView hide];
-    }
-    else {
+    } else {
         [_calendarView showInView:self.view];
     }
 }
@@ -55,7 +54,7 @@
     _calendarView.dataSource = dataSource;
     _calendarView.delegate = self;
     _calendarView.frame = CGRectMake(8, 40, 309, 350);
-    _calendarView.allowsMultipleSelection = NO;
+    _calendarView.allowsMultipleSelection = YES;
     NSDate *minimumDate = [NSDate date];
     _calendarView.minimumDate = minimumDate;
     _calendarView.maximumDate = [self theDateRelativeTodayWithInterval:20];
@@ -70,9 +69,9 @@
     calendarView.frame = self.targetView.frame;// targetView
     calendarView.dataSource = dataSource;
     calendarView.delegate = self;
-    [calendarView showInView:self.view];
+    [self.view addSubview:calendarView];
+    [calendarView show];
 
-    NSLog(@"%@", [self.view performSelector:@selector(recursiveDescription)]);
 }
 
 - (void)viewDidUnload {

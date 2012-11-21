@@ -707,7 +707,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-//    self.alpha = 0.0;
+    self.alpha = 0.0;
     self.multipleTouchEnabled = TRUE;
     self.gridScrollView.calendarDelegate = self;
     [self initParameters];
@@ -801,7 +801,9 @@
 }
 
 - (void)hide {
-    _shieldView.alpha = 0.0;
+    if (_shieldView != nil){
+        _shieldView.alpha = 0.0;
+    }
     self.alpha = 0.0;
 }
 
@@ -813,7 +815,9 @@
 
 - (void)show {
     self.alpha = 1.0;
-    _shieldView.alpha = 0.6;
+    if (_shieldView != nil){
+        _shieldView.alpha = 0.6;
+    }
 }
 
 - (void)showInView:(UIView *)view {
