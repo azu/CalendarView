@@ -84,8 +84,6 @@
 @implementation CalendarView
 
 @synthesize appear;
-@synthesize selectedDateArray;
-@synthesize selectedDate;
 @synthesize gridSize = _gridSize;
 @synthesize selectedPeriod = _selectedPeriod;
 @synthesize calMonth = _calMonth;
@@ -398,6 +396,10 @@
             calDay = [previousMonth calDayAtDay:day];
             column = [calDay getWeekDay] - 1;
             gridView = [self findDisableGridViewAtRow:row column:column calDay:calDay];
+            if (gridView == nil){
+                count--;
+                continue;
+            }
             gridView.delegate = self;
             gridView.calDay = calDay;
             gridView.row = row;
@@ -416,6 +418,9 @@
         row = (offsetRow + day - 1) / NUMBER_OF_DAYS_IN_WEEK;
         column = [calDay getWeekDay] - 1;
         gridView = [self findGridViewAtRow:row column:column calDay:calDay];
+        if (gridView == nil){
+            continue;
+        }
         gridView.delegate = self;
         gridView.calDay = calDay;
         gridView.row = row;
@@ -439,7 +444,7 @@
             maxHeight = CGRectGetMaxY(frame);
         }
     }
-    if (!hasSelectedDay){
+    if (!hasSelectedDay && [_monthGridViewsArray count] > 0){
         CalendarGridView *selectedGridView = [_monthGridViewsArray objectAtIndex:0];
         _selectedIndicesMatrix[selectedGridView.row][selectedGridView.column] = TRUE;
         selectedGridView.selected = TRUE;
@@ -456,6 +461,9 @@
             calDay = [previousMonth calDayAtDay:day];
             column = [calDay getWeekDay] - 1;
             gridView = [self findDisableGridViewAtRow:row column:column calDay:calDay];
+            if (gridView == nil){
+                continue;
+            }
             gridView.delegate = self;
             gridView.calDay = calDay;
             gridView.row = row;
@@ -519,15 +527,19 @@
     CalendarGridView *gridView = nil;
     if (_dataSource && [_dataSource respondsToSelector:@selector(calendarView:calendarDisableGridViewForRow:column:calDay:)]){
         gridView = [_dataSource calendarView:self calendarDisableGridViewForRow:row column:column calDay:calDay];
+    }else{
+        NSLog(@"_dataSource = %@", _dataSource);
+        NSLog(@"_dataSource = %@", _dataSource);
     }
     return gridView;
 }
 
-- (id)initWithFrame:(CGRect)frame {
-    self = [super initWithFrame:frame];
-    if (self){
-        // Initialization code
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    if (!self){
+        return nil;
     }
+
     return self;
 }
 
@@ -561,12 +573,12 @@
 //    if (next)
 //    {
 //        animation.subtype = kCATransitionFromLeft;
-//        [self.gridScrollView.layer addAnimation:animation forKey:@"NextMonth"];        
+//        [self.gridScrollView.layer addAnimation:animation forKey:@"NextMonth"];
 //    }
 //    else
 //    {
 //        animation.subtype = kCATransitionFromRight;
-//        [self.gridScrollView.layer addAnimation:animation forKey:@"PreviousMonth"];                
+//        [self.gridScrollView.layer addAnimation:animation forKey:@"PreviousMonth"];
 //    }
     UIViewAnimationTransition options;
     if (next){
@@ -610,7 +622,7 @@
 }
 
 - (void)layoutSubviews {
-    if (_firstLayout){
+    if (_dataSource && _firstLayout){
         [self layoutGridCells];
         /*
          * layout header view
@@ -695,6 +707,7 @@
     }
 }
 
+
 - (void)awakeFromNib {
     [super awakeFromNib];
     self.alpha = 0.0;
@@ -702,17 +715,17 @@
     self.gridScrollView.calendarDelegate = self;
     [self initParameters];
 //    /*
-//     * add left and right swipe gesture 
+//     * add left and right swipe gesture
 //     */
 //    UISwipeGestureRecognizer *leftSwipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipe:)];
 //    leftSwipeGesture.direction = UISwipeGestureRecognizerDirectionLeft;
 //    [self addGestureRecognizer:leftSwipeGesture];
 //    [leftSwipeGesture release];
-//    
+//
 //    UISwipeGestureRecognizer *rightSwipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipe:)];
 //    rightSwipeGesture.direction = UISwipeGestureRecognizerDirectionRight;
 //    [self addGestureRecognizer:rightSwipeGesture];
-//    [rightSwipeGesture release];     
+//    [rightSwipeGesture release];
 }
 
 - (NSDate *)selectedDate {

@@ -61,10 +61,10 @@ CalendarViewHeaderViewDelegate, CalendarViewFooterViewDelegate, CalendarScrollVi
     NSMutableDictionary     *_recycledGridSetDic;
     
     id<CalendarViewDataSource>  _dataSource;
-    id<CalendarViewDelegate>    __unsafe_unretained _delegate;
+    id<CalendarViewDelegate>     _delegate;
 }
 @property (nonatomic, strong) id<CalendarViewDataSource> dataSource;
-@property (nonatomic, unsafe_unretained) id<CalendarViewDelegate>   delegate;
+@property (nonatomic, strong) id<CalendarViewDelegate>   delegate;
 
 @property (nonatomic, assign) PeriodType selectedPeriod;    
 /*
