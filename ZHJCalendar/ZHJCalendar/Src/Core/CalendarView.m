@@ -834,13 +834,11 @@
         _shieldView.alpha = 0.0;
         _shieldView.backgroundColor = [UIColor whiteColor];
         [view addSubview:_shieldView];
-    } else {
-        if (![view isDescendantOfView:_shieldView]){
-            _shieldView.alpha = 0.0;
-            [_shieldView removeFromSuperview];
-            _shieldView.frame = view.bounds;
-            [view addSubview:_shieldView];
-        }
+    } else if (![_shieldView isDescendantOfView:view]){
+        _shieldView.alpha = 0.0;
+        [_shieldView removeFromSuperview];
+        _shieldView.frame = view.bounds;
+        [view addSubview:_shieldView];
     }
 }
 
