@@ -51,7 +51,7 @@
 + (NSInteger) getMonthWithDate:(NSDate*)date
 {
     unsigned unitFlags = NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit|NSWeekdayCalendarUnit;
-    NSCalendar *gregorian = [NSCalendar currentCalendar];
+    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
     NSDateComponents *comps = [gregorian components:unitFlags fromDate:date];
     NSInteger month = comps.month;
     return month;
@@ -59,7 +59,7 @@
 + (NSInteger) getDayWithDate:(NSDate*)date
 {
     unsigned unitFlags = NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit|NSWeekdayCalendarUnit;
-    NSCalendar *gregorian = [NSCalendar currentCalendar];
+    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
     NSDateComponents *comps = [gregorian components:unitFlags fromDate:date];
     NSInteger day = comps.day;
     return day;

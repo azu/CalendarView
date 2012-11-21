@@ -21,7 +21,7 @@
 
 - (void)calculateDate {
     unsigned unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSWeekdayCalendarUnit;
-    NSCalendar *gregorian = [NSCalendar currentCalendar];
+    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
     NSDateComponents *comps = [gregorian components:unitFlags fromDate:_date];
     day.month = comps.month;
     day.day = comps.day;
@@ -48,7 +48,7 @@
         [comps setHour:0];
         [comps setMinute:0];
         [comps setSecond:0];
-        _date = [[NSCalendar currentCalendar] dateFromComponents:comps];
+        _date = [[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar] dateFromComponents:comps];
         [self calculateDate];
     }
     return self;

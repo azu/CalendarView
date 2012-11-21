@@ -71,7 +71,7 @@
 
 - (CalendarViewHeaderView *)findHeaderView;
 
-- (CalendarViewFooterView *)findFooterview;
+- (CalendarViewFooterView *)findFooterView;
 
 - (CalendarGridView *)findGridViewAtRow:(NSUInteger)row column:(NSUInteger)column calDay:(CalDay *)calDay;
 
@@ -103,7 +103,7 @@
     _allowsMultipleSelection = FALSE;
     _firstLayout = TRUE;
     _selectedPeriod = PeriodTypeAllDay;
-    _minimumDate = [NSDate dateWithTimeIntervalSince1970:0];
+    _minimumDate = [NSDate date];
     _minimumDay = [[CalDay alloc] initWithDate:_minimumDate];
     _previousSelectedIndex.row = NSNotFound;
     _previousSelectedIndex.column = NSNotFound;
@@ -286,7 +286,7 @@
     else {
         CalDay *calDay = [_calMonth calDayAtDay:day];
         ITTDINFO(@"day is %d", day);
-        if ([self isEarlyerMinimumDay:calDay] || [self isAfterMaximumDay:calDay]){
+        if ([self isEarlierMinimumDay:calDay] || [self isAfterMaximumDay:calDay]){
             selectedEnable = FALSE;
         }
     }
@@ -327,7 +327,7 @@
     }
 }
 
-- (BOOL)isEarlyerMinimumDay:(CalDay *)calDay {
+- (BOOL)isEarlierMinimumDay:(CalDay *)calDay {
     BOOL early = FALSE;
     if (self.minimumDate != nil){
         if (NSOrderedAscending == [calDay compare:_minimumDay]){
@@ -425,7 +425,7 @@
         gridView.calDay = calDay;
         gridView.row = row;
         gridView.column = column;
-        gridView.selectedEnable = ([self isEarlyerMinimumDay:calDay] || [self isAfterMaximumDay:calDay]) ? FALSE : TRUE;
+        gridView.selectedEnable = ([self isEarlierMinimumDay:calDay] || [self isAfterMaximumDay:calDay]) ? FALSE : TRUE;
         if ([calDay isEqualToDay:self.selectedDay]){
             hasSelectedDay = TRUE;
             gridView.selected = TRUE;
@@ -507,7 +507,7 @@
     return headerView;
 }
 
-- (CalendarViewFooterView *)findFooterview {
+- (CalendarViewFooterView *)findFooterView {
     CalendarViewFooterView *footerView = nil;
     if (_dataSource && [_dataSource respondsToSelector:@selector(footerViewForCalendarView:)]){
         footerView = [_dataSource footerViewForCalendarView:self];
@@ -643,7 +643,7 @@
          * layout footer view
          */
         if (!_calendarFooterView){
-            CalendarViewFooterView *calendarFooterView = [self findFooterview];
+            CalendarViewFooterView *calendarFooterView = [self findFooterView];
             if (calendarFooterView){
                 if (_calendarFooterView){
                     [_calendarFooterView removeFromSuperview];
